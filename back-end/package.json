@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node --watch ./api/server.js",
+    "start": "node ./api/server.js",
     "format": "npx prettier \"**/*.js\" --write"
   },
   "keywords": [],
