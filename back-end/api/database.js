@@ -4,16 +4,7 @@ import { MongoClient } from "mongodb";
 dotenv.config()
 
 const URI = process.env.MONGO_DB_URI;
-let client = null;
-let database = null;
-
-console.log(URI)
-
-try {
-	client = new MongoClient(URI);
-	database = client.db("spotify-clone");
-} catch (err) {
-	client.close();
-}
+const client = new MongoClient(URI);
+const database = client.db("spotify-clone");
 
 export { database };
