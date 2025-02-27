@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 
 export function SongPlayerControls({ audio, duration, prevSongId, nextSongId }) {
 	const [playerState, setPlayerState] = useState("paused");
@@ -10,6 +11,12 @@ export function SongPlayerControls({ audio, duration, prevSongId, nextSongId }) 
 	const durationInSeconds = convertDurationToSeconds(duration);
 
 	useEffect(() => {
+    function destroyAudioPlayer() {
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
+      audioPlayer.removeEventListener("timeupdate", handleTimeUpdate);
+    }
+
 		audioPlayer.addEventListener("timeupdate", handleTimeUpdate);
 
 		return destroyAudioPlayer;
@@ -24,20 +31,6 @@ export function SongPlayerControls({ audio, duration, prevSongId, nextSongId }) 
 		audioPlayer.pause();
 		setPlayerState("paused");
 	}
-
-  function handleTimeUpdate() {
-    const audioPlayerCurrentTime = audioPlayer.currentTime;
-
-    if (parseInt(currentTime) !== parseInt(audioPlayerCurrentTime)) {
-      setCurrentTime(audioPlayerCurrentTime);
-    }
-  }
-
-  function destroyAudioPlayer() {
-    audioPlayer.pause();
-		audioPlayer.currentTime = 0;
-		audioPlayer.removeEventListener("timeupdate", handleTimeUpdate);
-  }
 
 	function convertDurationToSeconds(timestamp) {
 		const [minutes, seconds] = timestamp.split(":");
@@ -87,3 +80,15 @@ function ProgressBar({ currentTime, durationInSeconds }) {
 		</div>
 	);
 }
+
+SongPlayerControls.propTypes = {
+  audio: PropTypes.string.isRequired,
+  duration: PropTypes.string.isRequired,
+  prevSongId: PropTypes.string.isRequired,
+  nextSongId: PropTypes.string.isRequired,
+};
+
+ProgressBar.propTypes = {
+  currentTime: PropTypes.number.isRequired,
+  durationInSeconds: PropTypes.number.isRequired,
+};

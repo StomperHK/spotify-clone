@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { SongPlayerControls } from "./SongPlayerControls";
 import { SongTitle } from "./SongTitle";
 import { Spinner } from "../../components/Spinner";
@@ -23,4 +25,9 @@ export function SongPlayer({ songData, songLoaded }) {
 			)}
 		</div>
 	);
+}
+
+SongPlayer.propTypes = {
+  songData: PropTypes.object.isRequired,
+  songLoaded: PropTypes.bool.isRequired,
 }

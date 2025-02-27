@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router";
 
@@ -28,4 +30,11 @@ export function Card({ image, name, label, href }) {
 			</figure>
 		</li>
 	);
+}
+
+Card.propTypes = {
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  href: PropTypes.string.isRequired,
 }

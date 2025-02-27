@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -49,3 +50,9 @@ export function ItemsList({ title, type, layout="row" }) {
 		</section>
 	);
 }
+
+ItemsList.propTypes = {
+  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  layout: PropTypes.string,
+};

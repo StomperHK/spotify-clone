@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 
 export function ArtistSong({ image, name, duration, href }) {
 	return (
@@ -12,4 +13,11 @@ export function ArtistSong({ image, name, duration, href }) {
 			</Link>
 		</li>
 	);
+}
+
+ArtistSong.propTypes = {
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  duration: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
 }
