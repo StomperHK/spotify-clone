@@ -7,7 +7,7 @@ import { Spinner}  from "./Spinner";
 
 export function ItemsList({ title, type, layout="row" }) {
 	const isInHome = useLocation().pathname === "/";
-	const itemsData = useFetchItemsData(type, isInHome ? "?limit=6" : "");
+	const [itemsData] = useFetchItemsData(`${type}${isInHome ? "?limit=6" : ""}`);
 	const itemsDataLoaded = itemsData !== null;
 
 	return (

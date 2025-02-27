@@ -1,29 +1,23 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 
-import { api } from "../../lib/api";
+import { useFetchItemsData } from "../../hooks/useFetchItemsData";
 import { Card } from "../../components/Card";
 import { Spinner } from "../../components/Spinner";
 
 export function AllSongsList() {
-	const [songsData, setSongsData] = useState([]);
-	const [offset, setoffset] = useState(0);
+	const [songsData, setPath] = useFetchItemsData("songs?limit=20&offset=0");
+	const [offset, setOffset] = useState(1);
 	const observer = useRef();
 	const loadMoreSongsObserver = useRef();
 	const songsDataLoaded = songsData.length > 0;
 
-	async function fetchMoreSongs() {
-		const newSongs = (await api.get(`/songs?limit=20&offset=${offset}`)).data
-
-		setSongsData([...songsData, ...newSongs]);
-		setoffset(offset + 1);
-	}
-
 	useEffect(() => {
-		fetchMoreSongs();
-	}, []);
+    async function fetchMoreSongs() {
+      setPath(`songs?limit=20&offset=${offset}`)
+      setOffset(offset + 1);
+    }
 
-	useEffect(() => {
 		observer.current = new IntersectionObserver(entries => {
 			if (entries[0].isIntersecting) {
 				fetchMoreSongs();
@@ -37,8 +31,8 @@ export function AllSongsList() {
 				observer.current.disconnect();
 			}
 		};
-	}, [offset]);
-
+	}, [offset, setPath]);
+  
 	return (
 		<>
 			<h2 className="mb-8">

@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 import { api } from "../lib/api.js";
 
-export function useFetchItemsData(type, query="") {
-	const [itemsData, setItemsData] = useState(null);
+export function useFetchItemsData(pathToFetch) {
+	const [itemsData, setItemsData] = useState([]);
+  const [path, setPath] = useState(pathToFetch)
 
 	useEffect(() => {
 		async function fetchItemsdata() {
-      const data = (await api.get(`/${type}${query.replaceAll(" ", "%20").replaceAll("&", "%26")}`)).data
-      
-			setItemsData(data);
+      if (!path) return
+
+      const data = (await api.get("/" + path.replaceAll(" ", "%20"))).data
+
+			setItemsData([...itemsData, ...data]);
 		}
 
 		fetchItemsdata();
-	}, [type, query]);
+	}, [path]);
 
-	return itemsData;
+	return [itemsData, setPath];
 }
