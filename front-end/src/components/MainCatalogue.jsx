@@ -5,5 +5,5 @@ export function MainCatalogue({ children }) {
 }
 
 MainCatalogue.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
