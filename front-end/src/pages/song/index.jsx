@@ -7,7 +7,7 @@ import { Spinner } from "../../components/Spinner";
 export function Song() {
 	const id = useParams().id;
 	const songData = useFetchItemData("song", `?id=${id}`);
-	const songLoaded = songData.name;
+	const songLoaded = Object.keys(songData).length > 0;
 
 	return (
 		<div>

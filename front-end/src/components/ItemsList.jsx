@@ -8,8 +8,8 @@ import { Spinner}  from "./Spinner";
 
 export function ItemsList({ title, type, layout="row" }) {
 	const isInHome = useLocation().pathname === "/";
-	const [itemsData] = useFetchItemsData(`${type}${isInHome ? "?limit=6" : ""}`);
-	const itemsDataLoaded = itemsData !== null;
+	const [ itemsData ] = useFetchItemsData(`${type}${isInHome ? "?limit=6" : ""}`);
+	const itemsDataLoaded = itemsData.length;
 
 	return (
 		<section className="mb-12 custom-scrollbar">
